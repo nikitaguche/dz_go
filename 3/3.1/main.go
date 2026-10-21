@@ -13,5 +13,6 @@ func main() {
 	IMT := userKg  / math.Pow(useHeight, IMTPow)
 
 fmt.Print(IMT)
+//whithout merge
 
 }
