@@ -9,4 +9,5 @@ func main() {
 	convert := 1 / usd_to_euro * usd_to_rub
 
 	fmt.Println(convert)
+	
 }
