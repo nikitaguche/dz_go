@@ -49,7 +49,7 @@ func userInputTwo(ish string) (val string) {
 		}
 		
 		fmt.Scan(&val)
-		if (val != "USD") && (val != "EUR") && (val != "RUB")&& (val != ish){
+		if ((val != "USD") && (val != "EUR") && (val != "RUB")) || (val == ish){
 			fmt.Println("Введено неккоректное значение!")
 		}else{
 			return
