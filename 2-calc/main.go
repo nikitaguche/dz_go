@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -11,7 +14,7 @@ func main(){
 	oper := inputOper()
 	mas := inputMas()
 	result :=  calcRes(oper, mas)
-	fmt.Printf("Результат операции %s равен  %f", oper, result)
+	fmt.Printf("Результат операции %s равен %f", oper, result)
 
 }
 
@@ -27,20 +30,23 @@ func inputOper() (val string){
 	}
 }
 func inputMas() (val []int){
-	var str string
-	fmt.Println("Введите числа одной строкой через запятую (БЕЗ пробелов): ")
-	fmt.Scan(&str)
+fmt.Println("Введите числа через запятую (например: 2, 10, 9): ")
 
-	parts := strings.Split(str, ",")
-	for _, value := range parts {
-		
-		num, err := strconv.Atoi(value)
-		if err != nil {
-			continue
-		}
-		val = append(val, num)
-	}
-	return
+    reader := bufio.NewReader(os.Stdin)
+    str, err := reader.ReadString('\n')
+    if err != nil {
+        return
+    }
+
+    parts := strings.Split(str, ",")
+    for _, value := range parts {
+        num, err := strconv.Atoi(strings.TrimSpace(value))
+        if err != nil {
+            continue
+        }
+        val = append(val, num)
+    }
+    return
 }
 
 func calcRes(oper string, mas []int) (res float64){
@@ -62,10 +68,12 @@ func calcRes(oper string, mas []int) (res float64){
 		return float64(sum)
 
 	case oper == "MED":
+		if len(mas) == 0{return 0}
+		 slices.Sort(mas)
 		if len(mas) % 2 == 1{
 			return float64(mas[((len(mas) + 1) / 2) -1])
 		}else if len(mas) % 2 == 0{
-			return float64((mas[len(mas)/2] + mas[(len(mas) + 1)/2] )/ 2)
+			return float64((float64(mas[len(mas)/2 - 1])+ float64(mas[len(mas) / 2]))/ 2)
 		}
 
 	default:
