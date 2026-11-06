@@ -11,7 +11,7 @@ func main(){
 	oper := inputOper()
 	mas := inputMas()
 	result :=  calcRes(oper, mas)
-	fmt.Printf("Результат операции %s равен %f", oper, result)
+	fmt.Printf("Результат операции %s равен  %f", oper, result)
 
 }
 
