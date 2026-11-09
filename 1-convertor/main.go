@@ -61,23 +61,28 @@ func rasch(val float64, ish string, cel string) (res float64) {
 	const usd_to_euro = 0.89
 	const usd_to_rub = 81.10
 	const euro_to_rub = 91.44
+	convert := map[string] float64{
+		"usd_to_euro": 0.89,
+		"usd_to_rub": 81.10,
+		"euro_to_rub": 91.44,
+	}
 	if(ish == "USD"){
 		if(cel == "RUB"){
-			res = val * usd_to_rub
+			res = val * convert["usd_to_rub"]
 		}else{
-			res = val * usd_to_euro
+			res = val * convert["usd_to_euro"]
 		}
 	}else if(ish == "EUR"){
 		if(cel == "RUB"){
-			res = val * euro_to_rub
+			res = val * convert["euro_to_rub"]
 		}else{
-			res = val /  usd_to_euro
+			res = val /  convert["usd_to_euro"]
 		}
 	}else if ish == "RUB"{
 		if(cel == "USD"){
-			res = val / usd_to_rub
+			res = val / convert["usd_to_rub"]
 		}else{
-			res = val /  euro_to_rub
+			res = val /  convert["euro_to_rub"]
 		}
 	}
 	return
