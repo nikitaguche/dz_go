@@ -71,9 +71,9 @@ func userInputTwo(ish string) (val string) {
 	}
 }
 
-func rasch(val float64, ish string, cel string, convert *string[]) (res float64) {
+func rasch(val float64, ish string, cel string, convert *map[string]map[string]float64) (res float64) {
 	
-	res = val * convert[ish][cel]
+	res = val * (*convert)[ish][cel]
 	return
 
 }
