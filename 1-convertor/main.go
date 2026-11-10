@@ -3,11 +3,25 @@ package main
 import "fmt"
 
 func main() {
-	
+	convert := map[string] map[string] float64{
+		"USD": {
+        	"EUR": 0.92,
+        	"RUB": 90.5,
+    	},
+    	"EUR": {
+        	"USD": 1.09,
+        	"RUB": 98.2,
+    	},
+		"RUB": {
+        	"USD": 0.012,
+        	"EUR": 0.011,
+    	},	
+	}
+
 	ish := userInputOne()
 	val := userInputVal()
 	conv := userInputTwo(ish)
-	res := rasch(val, ish, conv)
+	res := rasch(val, ish, conv, &convert)
 	fmt.Println("Результат конвертации:", res)
 
 }
@@ -47,7 +61,7 @@ func userInputTwo(ish string) (val string) {
 		default:
 			fmt.Print("Введите конечную валюту(USD, EUR, RUB): ")
 		}
-		
+
 		fmt.Scan(&val)
 		if ((val != "USD") && (val != "EUR") && (val != "RUB")) || (val == ish){
 			fmt.Println("Введено неккоректное значение!")
@@ -57,23 +71,8 @@ func userInputTwo(ish string) (val string) {
 	}
 }
 
-func rasch(val float64, ish string, cel string) (res float64) {
-	convert := map[string] map[string] float64{
-		"USD": {
-        	"EUR": 0.92,
-        	"RUB": 90.5,
-    	},
-    	"EUR": {
-        	"USD": 1.09,
-        	"RUB": 98.2,
-    	},
-		"RUB": {
-        	"USD": 0.012,
-        	"EUR": 0.011,
-    	},
-		
-		
-	}
+func rasch(val float64, ish string, cel string, convert *string[]) (res float64) {
+	
 	res = val * convert[ish][cel]
 	return
 
