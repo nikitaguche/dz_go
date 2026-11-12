@@ -3,11 +3,25 @@ package main
 import "fmt"
 
 func main() {
-	
+	convert := map[string] map[string] float64{
+		"USD": {
+        	"EUR": 0.92,
+        	"RUB": 90.5,
+    	},
+    	"EUR": {
+        	"USD": 1.09,
+        	"RUB": 98.2,
+    	},
+		"RUB": {
+        	"USD": 0.012,
+        	"EUR": 0.011,
+    	},	
+	}
+
 	ish := userInputOne()
 	val := userInputVal()
 	conv := userInputTwo(ish)
-	res := rasch(val, ish, conv)
+	res := rasch(val, ish, conv, &convert)
 	fmt.Println("Результат конвертации:", res)
 
 }
@@ -47,7 +61,7 @@ func userInputTwo(ish string) (val string) {
 		default:
 			fmt.Print("Введите конечную валюту(USD, EUR, RUB): ")
 		}
-		
+
 		fmt.Scan(&val)
 		if ((val != "USD") && (val != "EUR") && (val != "RUB")) || (val == ish){
 			fmt.Println("Введено неккоректное значение!")
@@ -57,29 +71,9 @@ func userInputTwo(ish string) (val string) {
 	}
 }
 
-func rasch(val float64, ish string, cel string) (res float64) {
-	const usd_to_euro = 0.89
-	const usd_to_rub = 81.10
-	const euro_to_rub = 91.44
-	if(ish == "USD"){
-		if(cel == "RUB"){
-			res = val * usd_to_rub
-		}else{
-			res = val * usd_to_euro
-		}
-	}else if(ish == "EUR"){
-		if(cel == "RUB"){
-			res = val * euro_to_rub
-		}else{
-			res = val /  usd_to_euro
-		}
-	}else if ish == "RUB"{
-		if(cel == "USD"){
-			res = val / usd_to_rub
-		}else{
-			res = val /  euro_to_rub
-		}
-	}
+func rasch(val float64, ish string, cel string, convert *map[string]map[string]float64) (res float64) {
+	
+	res = val * (*convert)[ish][cel]
 	return
 
 }
