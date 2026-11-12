@@ -32,8 +32,8 @@ func newBinList(m *Bin)(*BinList, error){
 		return nil, errors.New("Invalid Data")
 	}
 	return &BinList{
-		bins : m,
-	}, nil
+        bins: []Bin{},
+    }, nil
 }
 func main(){
 
